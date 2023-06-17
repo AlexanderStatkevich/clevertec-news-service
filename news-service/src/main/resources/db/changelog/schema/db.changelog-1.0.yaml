@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      author: bumblebear
+      id: 1
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: news
+              schemaName: data
+      changes:
+        - createTable:
+            tableName: news
+            schemaName: data
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: time
+                  constraints:
+                    nullable: false
+                  type: timestamp(6) without time zone
+              - column:
+                  name: text
+                  constraints:
+                    nullable: false
+                  type: VARCHAR(255)
+              - column:
+                  name: title
+                  constraints:
+                    nullable: false
+                  type: VARCHAR(255)
