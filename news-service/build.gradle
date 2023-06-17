@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-config-client'
     implementation 'org.liquibase:liquibase-core'
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 
@@ -42,6 +43,12 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 compileJava {

@@ -2,6 +2,12 @@ databaseChangeLog:
   - changeSet:
       author: bumblebear
       id: 1
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: news
+              schemaName: data
       changes:
         - createTable:
             tableName: news

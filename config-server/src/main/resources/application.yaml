@@ -1,0 +1,23 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: false
+        git:
+          uri: https://github.com/AlexanderStatkevich/clevertec-news-service
+          clone-on-start: true
+          ignore-local-ssh-settings: true
+          private-key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+            QyNTUxOQAAACBqnlB25wqLHT49jmK/WK0RUMeNG80XG4q1LXJgCHxykgAAAKAIqeSpCKnk
+            qQAAAAtzc2gtZWQyNTUxOQAAACBqnlB25wqLHT49jmK/WK0RUMeNG80XG4q1LXJgCHxykg
+            AAAEANw3gTkUyO2fSzdCDs+L4yloaxNMYKJZ2XuYUCbuD5GmqeUHbnCosdPj2OYr9YrRFQ
+            x40bzRcbirUtcmAIfHKSAAAAFmFhc3RhdGtldmljaEBnbWFpbC5jb20BAgMEBQYH
+            -----END OPENSSH PRIVATE KEY-----
+
+          search-paths: 'configuration/{application}/{profile}'
+          default-label: master
