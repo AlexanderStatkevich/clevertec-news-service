@@ -19,5 +19,5 @@ spring:
             x40bzRcbirUtcmAIfHKSAAAAFmFhc3RhdGtldmljaEBnbWFpbC5jb20BAgMEBQYH
             -----END OPENSSH PRIVATE KEY-----
 
-          search-paths: 'configuration/{application}/{profile}'
+          search-paths: 'configuration/{application}'
           default-label: master

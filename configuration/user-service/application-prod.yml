@@ -1,0 +1,21 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: news-service
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: data
+  datasource:
+    url: jdbc:postgresql://localhost:5777/newsDB
+    username: postgres
+    password: Aries1994
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: true
