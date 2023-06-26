@@ -39,12 +39,12 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.create(comment));
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<CommentVo> findById(@PathVariable Long id) {
         Comment comment = commentService.findById(id);
         return ResponseEntity.ok(commentMapper.toDto(comment));
     }
-
     @GetMapping
     public ResponseEntity<Page<CommentVo>> findAll(Pageable pageable) {
         Page<Comment> certificatePage = commentService.findAll(pageable);
