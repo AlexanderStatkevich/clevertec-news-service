@@ -16,7 +16,7 @@ public class LoggingAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(LoggingAspect.class)
     public LoggingAspect loggingAspect() {
-        log.info("Logging Aspect is created...");
+        log.info("Logging Aspect bean is created...");
         return new LoggingAspect();
     }
 
