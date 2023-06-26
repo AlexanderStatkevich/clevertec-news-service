@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5777/newsDB
+    username: postgres
+    password: Aries1994
+  cloud:
+    config:
+      enabled: false
+server:
+  tomcat:
+    relaxed-query-chars: '|,{,},[,]'

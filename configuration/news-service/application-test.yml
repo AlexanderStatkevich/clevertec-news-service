@@ -1,5 +1,4 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/newsDB
     username: test
     password: test
