@@ -47,8 +47,8 @@ public class NewsController {
 
     @GetMapping
     public ResponseEntity<Page<NewsVo>> findAll(@RequestBody Filter<News> filter, Pageable pageable) {
-        Page<News> certificatePage = newsService.findAll(filter, pageable);
-        return ResponseEntity.ok(certificatePage.map(newsMapper::toDto));
+        Page<News> newsPage = newsService.findAll(filter, pageable);
+        return ResponseEntity.ok(newsPage.map(newsMapper::toDto));
     }
 
 

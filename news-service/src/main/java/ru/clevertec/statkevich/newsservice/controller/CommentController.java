@@ -47,8 +47,8 @@ public class CommentController {
     }
     @GetMapping
     public ResponseEntity<Page<CommentVo>> findAll(Pageable pageable) {
-        Page<Comment> certificatePage = commentService.findAll(pageable);
-        return ResponseEntity.ok(certificatePage.map(commentMapper::toDto));
+        Page<Comment> commentPage = commentService.findAll(pageable);
+        return ResponseEntity.ok(commentPage.map(commentMapper::toDto));
     }
 
 
