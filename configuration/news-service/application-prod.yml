@@ -1,17 +1,8 @@
 spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        default_schema: data
   datasource:
-    url: jdbc:postgresql://localhost:5777/newsDB
-    username: postgres
-    password: Aries1994
-    driverClassName: org.postgresql.Driver
-  liquibase:
-    enabled: true
+    url: jdbc:postgresql://news-db:5432/news
+    username: root
+    password: root
+news-service:
+  user-service:
+    uri: http://email-service:3333/api/v1/mail

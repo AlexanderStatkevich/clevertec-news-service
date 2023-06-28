@@ -1,8 +1,4 @@
 spring:
-  config:
-    import: optional:configserver:http://localhost:8888
-  application:
-    name: news-service
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -13,9 +9,9 @@ spring:
       hibernate:
         default_schema: data
   datasource:
-    url: jdbc:postgresql://localhost:5777/newsDB
-    username: postgres
-    password: Aries1994
+    url: jdbc:postgresql://user-db:5432/user
+    username: root
+    password: root
     driverClassName: org.postgresql.Driver
   liquibase:
     enabled: true
