@@ -49,8 +49,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    @CachePut("comment")
-//    @CacheEvict(value = "comments", allEntries = true)
+    @CachePut(value = "comment", key = "#id")
+    @CacheEvict(value = "comments", allEntries = true)
     public Comment update(Long id, CommentUpdateDto commentUpdateDto) {
         Comment comment = findById(id);
         commentMapper.map(commentUpdateDto, comment);
@@ -62,8 +62,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     @Caching(evict = {
-            @CacheEvict("comment"),
-            @CacheEvict(value = "comments", allEntries = true, key = "#p0")
+            @CacheEvict(value = "comment", key = "#id"),
+            @CacheEvict(value = "comments", allEntries = true)
     })
     public void delete(Long id) {
         commentRepository.deleteById(id);

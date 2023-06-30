@@ -24,7 +24,7 @@ import ru.clevertec.statkevich.newsservice.service.api.CommentService;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/comments")
+@RequestMapping(path = "/api/v1/comments")
 public class CommentController {
 
     private final CommentService commentService;

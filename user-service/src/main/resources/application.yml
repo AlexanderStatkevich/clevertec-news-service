@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        default_schema: data
+  datasource:
+    url: jdbc:postgresql://localhost:5777/newsDB
+    username: postgres
+    password: Aries1994
+    driverClassName: org.postgresql.Driver
+  cloud:
+    config:
+      enabled: false
+  application:
+    name: user-service
+jwt:
+  secret: NDQ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYw
+  issuer: Clevertec

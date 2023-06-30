@@ -25,7 +25,7 @@ import ru.clevertec.statkevich.newsservice.service.api.NewsService;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/news")
+@RequestMapping(path = "/api/v1/news")
 public class NewsController {
 
     private final NewsService newsService;

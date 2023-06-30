@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
-@ConfigurationProperties("news.cache")
+@ConfigurationProperties("news-service.cache")
 public record CacheProperties(
         @NotNull
         CacheType type

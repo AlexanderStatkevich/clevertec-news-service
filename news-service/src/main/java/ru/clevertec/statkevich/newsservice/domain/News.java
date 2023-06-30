@@ -1,5 +1,6 @@
 package ru.clevertec.statkevich.newsservice.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -19,6 +20,6 @@ public class News extends BaseEntity {
     @Column(name = "title")
     private String title;
 
-    @OneToMany
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 }

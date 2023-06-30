@@ -1,0 +1,25 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: data
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: change_me
+    password: change_me
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    protocol: smtp
+    test-connection: false
+  application:
+    name: email-service
+
+server:
+  port: 3333

@@ -5,4 +5,4 @@ spring:
     password: root
 news-service:
   user-service:
-    uri: http://email-service:3333/api/v1/mail
+    uri: http://user-service:3333/api/v1/validate

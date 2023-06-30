@@ -11,6 +11,4 @@ spring:
 server:
   tomcat:
     relaxed-query-chars: '|,{,},[,]'
-news:
-  cache:
-    type: LRU
+
