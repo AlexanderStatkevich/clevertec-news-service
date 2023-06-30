@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+Hello,<b th:text="${name}"></b>.
+
+For verification please use this link:
+<a th:href="@{{host}/verification(host = ${host},code=${code}, mail=${email})}"></a>
+
+If the link turned out to be broken, enter this <b th:text="${code}"></b> code at the verification address.
+
+<p>
+    Regards, <br/>
+    &emsp; <em>The Clevertec team</em>
+</p>
+
+</body>
+</html>
