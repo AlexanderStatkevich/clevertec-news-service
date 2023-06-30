@@ -1,0 +1,93 @@
+services:
+
+  config-server:
+    build: config-server
+    image: config-server:1.0.0
+    networks:
+      - news_network
+    ports:
+      - 8888:8888
+
+  news-service:
+    build: news-service
+    image: news-service:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    networks:
+      - news_network
+    depends_on:
+      - news-db
+      - config-server
+
+  news-db:
+    image: postgres:15.3-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: news
+    networks:
+      - news_network
+
+  user-service:
+    build: user-service
+    image: user-service:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    networks:
+      - news_network
+    depends_on:
+      - user-db
+      - config-server
+
+  user-db:
+    image: postgres:15.3-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: user
+    networks:
+      - news_network
+
+  email-service:
+    build: email-service
+    image: email-service:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    networks:
+      - news_network
+    depends_on:
+      - email-db
+      - config-server
+
+  email-db:
+    image: postgres:15.3-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: email
+    networks:
+      - news_network
+
+  cache:
+    image: redis:7.0.11-alpine
+    restart: always
+    networks:
+      - news_network
+
+  proxy:
+    build: proxy
+    image: proxy:1.0.0
+    ports:
+      - "80:80"
+    networks:
+      - news_network
+
+networks:
+  news_network:
+    name: news_network
