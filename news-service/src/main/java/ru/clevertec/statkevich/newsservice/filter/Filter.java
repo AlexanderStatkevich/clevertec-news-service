@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Instance of filter need to be passed with request for filtering the result.
+ * Can aggregate multiple conditions of abstract filtering parameters.
+ *
+ * @param <T> type of filtered element
+ */
 @Setter
 public class Filter<T> implements Specification<T> {
 
@@ -42,7 +48,7 @@ public class Filter<T> implements Specification<T> {
     }
 
     private Predicate buildLikePredicateToCriteria(Condition condition, Root<T> root, CriteriaBuilder criteriaBuilder) {
-        return criteriaBuilder.like(root.get(condition.field()), "%" + condition.value() + "%");
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get(condition.field())), "%" + condition.value().toString().toUpperCase() + "%");
     }
 
     private Predicate buildEqualsPredicateToCriteria(Condition condition, Root<T> root, CriteriaBuilder criteriaBuilder) {
@@ -50,9 +56,9 @@ public class Filter<T> implements Specification<T> {
     }
 
     private Predicate buildGreaterThanOrEqualPredicateToCriteria(Condition condition, Root<T> root, CriteriaBuilder criteriaBuilder) {
-        Path<Comparable> yPath = root.get(condition.field());
+        Path<Comparable> path = root.get(condition.field());
         Comparable value = (Comparable) condition.value();
-        return criteriaBuilder.greaterThanOrEqualTo(yPath, value);
+        return criteriaBuilder.greaterThanOrEqualTo(path, value);
     }
 
     private Predicate buildLessThanPredicateToCriteria(Condition condition, Root<T> root, CriteriaBuilder criteriaBuilder) {

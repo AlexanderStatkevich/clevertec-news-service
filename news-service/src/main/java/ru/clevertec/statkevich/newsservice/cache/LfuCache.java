@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
 
-
+/**
+ * Implementation of least frequently used cache algorithm using Spring Framework interface.
+ */
 public class LfuCache extends AbstractValueAdaptingCache implements Cache {
 
     private final int cacheCapacity;

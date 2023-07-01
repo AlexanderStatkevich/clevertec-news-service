@@ -6,7 +6,7 @@ plugins {
 
 
 group = 'ru.clevertec'
-version = '0.0.1'
+version = '1.0.0'
 sourceCompatibility = '17'
 
 configurations {
@@ -21,27 +21,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.cloud:spring-cloud-starter-config'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.cloud:spring-cloud-config-client'
-    implementation 'org.liquibase:liquibase-core'
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
-    implementation 'ru.clevertec:starter-logging:0.0.1'
-
-
-    implementation 'ru.clevertec:starter-exception-handler:0.0.1'
-
+    implementation(
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'com.google.code.findbugs:jsr305:3.0.2',
+            'org.springframework.boot:spring-boot-starter-security',
+            'io.jsonwebtoken:jjwt:0.9.1',
+            'javax.xml.bind:jaxb-api:2.3.1',
+            'org.springframework.cloud:spring-cloud-starter-openfeign',
+            'org.springframework.boot:spring-boot-starter-hateoas',
+            'org.springframework.boot:spring-boot-starter-validation',
+            'org.springframework.cloud:spring-cloud-starter-config',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-cache',
+            'org.springframework.boot:spring-boot-starter-data-redis',
+            'org.springframework.cloud:spring-cloud-config-client',
+            'org.liquibase:liquibase-core',
+            "org.mapstruct:mapstruct:${mapstructVersion}",
+            'ru.clevertec:starter-logging:0.0.1',
+            'ru.clevertec:starter-exception-handler:0.0.1'
+    )
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -49,15 +47,22 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql'
 
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    annotationProcessor(
+            'org.projectlombok:lombok',
+            "org.mapstruct:mapstruct-processor:${mapstructVersion}",
+            'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    )
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-    testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation 'org.testcontainers:postgresql'
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test',
+            'org.springframework.boot:spring-boot-testcontainers',
+            'org.springframework.security:spring-security-test',
+            'org.testcontainers:junit-jupiter',
+            'org.testcontainers:postgresql'
+    )
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 dependencyManagement {

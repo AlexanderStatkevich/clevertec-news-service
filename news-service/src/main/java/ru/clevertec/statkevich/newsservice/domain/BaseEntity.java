@@ -15,6 +15,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
+/**
+ * Abstract class for common fields.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -22,12 +25,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity {
-
+    /**
+     * Unique identifier of entity
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    /**
+     * Creation time of entity
+     */
     @Column(name = "time")
     private LocalDateTime time;
 

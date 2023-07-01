@@ -1,10 +1,8 @@
-package ru.clevertec.statkevich.newsservice.dto;
+package ru.clevertec.statkevich.newsservice.dto.comment;
 
 public record CommentCreateDto(
 
         String text,
-
-        String username,
 
         Long newsId
 ) {

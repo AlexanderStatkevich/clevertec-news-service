@@ -5,6 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Client for requesting validation of JSON Web Token
+ */
 
 @FeignClient(value = "validationClient", url = "${news-service.user-service.uri}")
 public interface ValidationClient {

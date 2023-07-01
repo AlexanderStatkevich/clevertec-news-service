@@ -1,4 +1,4 @@
-package ru.clevertec.statkevich.newsservice.dto;
+package ru.clevertec.statkevich.newsservice.dto.news;
 
 public record NewsCreateDto(
 

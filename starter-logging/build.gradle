@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'ru.clevertec'
-version = '0.0.1'
+version = '1.0.0'
 
 java {
     sourceCompatibility = '17'
@@ -39,9 +39,9 @@ tasks.named('test') {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'ru.clevertec'
+            groupId = group
             artifactId = 'starter-logging'
-            version = '0.0.1'
+            version = version
 
             from components.java
 

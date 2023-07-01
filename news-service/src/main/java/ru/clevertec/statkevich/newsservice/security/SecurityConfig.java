@@ -11,15 +11,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.clevertec.statkevich.newsservice.security.jwt.JwtAuthEntryPoint;
 import ru.clevertec.statkevich.newsservice.security.jwt.JwtDeniedHandler;
 import ru.clevertec.statkevich.newsservice.security.jwt.JwtFilter;
 
+/**
+ * Configuration class for security filter chain. Customizing properties and request authorization.
+ * Also requests authorization configured in controllers by method security.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,7 +38,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter filter) throws Exception {
 
-        DefaultSecurityFilterChain defaultSecurityFilterChain = http.cors(Customizer.withDefaults())
+        return http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(Customizer.withDefaults())
                 .sessionManagement((sessionManagement) ->
@@ -49,22 +50,16 @@ public class SecurityConfig {
                                 .accessDeniedHandler(jwtDeniedHandler)
                 )
                 .authorizeHttpRequests((req) -> req
-                        .requestMatchers(HttpMethod.GET, "/api/v1/comments", "/api/v1/news").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/news").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/comments").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-
-        return defaultSecurityFilterChain;
     }
 
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

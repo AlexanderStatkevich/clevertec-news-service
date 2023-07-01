@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'ru.clevertec'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 
 java {
 	sourceCompatibility = '17'
@@ -13,10 +13,6 @@ java {
 
 repositories {
 	mavenCentral()
-}
-
-ext {
-	set('springCloudVersion', "2022.0.3")
 }
 
 dependencies {

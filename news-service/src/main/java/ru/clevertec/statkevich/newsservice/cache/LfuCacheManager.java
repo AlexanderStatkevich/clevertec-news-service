@@ -11,7 +11,6 @@ public class LfuCacheManager implements CacheManager {
 
     private final Map<String, Cache> cacheMap = new ConcurrentHashMap<>();
 
-
     @Override
     public Cache getCache(String name) {
         Cache cache = cacheMap.get(name);

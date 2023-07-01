@@ -17,6 +17,9 @@ import java.io.IOException;
 
 import static org.apache.logging.log4j.util.Strings.isEmpty;
 
+/**
+ * Security filter for api requests.
+ */
 @RequiredArgsConstructor
 @Component
 public class JwtFilter extends OncePerRequestFilter {

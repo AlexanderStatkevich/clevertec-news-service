@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * Implementation of least recently used cache algorithm using Spring Framework interface.
+ */
 public class LruCache extends AbstractValueAdaptingCache implements Cache {
 
     private final String name;
@@ -17,13 +20,6 @@ public class LruCache extends AbstractValueAdaptingCache implements Cache {
     private final ConcurrentMap<Object, Node> pointerMap;
     private final int cacheCapacity;
 
-    /**
-     * Create an {@code AbstractValueAdaptingCache} with the given setting.
-     *
-     * @param allowNullValues whether to allow for {@code null} values
-     * @param name
-     * @param cacheCapacity
-     */
     public LruCache(boolean allowNullValues, String name, int cacheCapacity) {
         super(allowNullValues);
         this.name = name;

@@ -11,11 +11,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.statkevich.newsservice.domain.Comment;
-import ru.clevertec.statkevich.newsservice.dto.CommentUpdateDto;
+import ru.clevertec.statkevich.newsservice.dto.comment.CommentUpdateDto;
+import ru.clevertec.statkevich.newsservice.filter.Filter;
 import ru.clevertec.statkevich.newsservice.mapper.CommentMapper;
 import ru.clevertec.statkevich.newsservice.repository.CommentRepository;
 import ru.clevertec.statkevich.newsservice.service.api.CommentService;
 
+
+/**
+ * Described class bind storage and output of application.
+ * As well as uses CRUD operations for this purpose.
+ */
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -29,8 +35,9 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @CachePut("comment")
     @CacheEvict(value = "comments", allEntries = true)
-    public Long create(Comment comment) {
-        return commentRepository.saveAndFlush(comment).getId();
+    public Comment create(Comment comment) {
+        commentRepository.saveAndFlush(comment);
+        return comment;
     }
 
     @Override
@@ -45,6 +52,17 @@ public class CommentServiceImpl implements CommentService {
     @Cacheable(value = "comments", key = "#pageable.pageSize+#pageable.pageNumber")
     public Page<Comment> findAll(Pageable pageable) {
         return commentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Comment> findAllByNewsId(Long id, Pageable pageable) {
+        return commentRepository.findAllByNewsId(id, pageable);
+    }
+
+    @Override
+    @Cacheable(value = "comments", key = "#pageable.pageSize+#pageable.pageNumber")
+    public Page<Comment> findAllFiltered(Filter<Comment> filter, Pageable pageable) {
+        return commentRepository.findAll(filter, pageable);
     }
 
     @Override

@@ -17,6 +17,9 @@ spring:
       enabled: false
   application:
     name: user-service
+user-service:
+  mail-service:
+    uri: http://user-service:3333/api/v1/validate
 jwt:
   secret: NDQ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYw
   issuer: Clevertec

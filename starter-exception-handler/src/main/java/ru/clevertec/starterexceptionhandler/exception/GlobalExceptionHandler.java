@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ * This class intercepts errors and translates them in the required form.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
