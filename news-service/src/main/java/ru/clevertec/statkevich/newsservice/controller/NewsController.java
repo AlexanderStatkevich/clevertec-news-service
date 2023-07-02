@@ -25,6 +25,7 @@ import ru.clevertec.statkevich.newsservice.domain.News;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
+import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
 import ru.clevertec.statkevich.newsservice.filter.Filter;
 import ru.clevertec.statkevich.newsservice.mapper.CommentMapper;
@@ -81,10 +82,10 @@ public class NewsController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @PatchMapping("/{id}")
-    public ResponseEntity<NewsVo> update(@PathVariable("id") Long id,
-                                         @Valid @RequestBody NewsUpdateDto newsUpdateDto) {
+    public ResponseEntity<NewsUpdateVo> update(@PathVariable("id") Long id,
+                                               @Valid @RequestBody NewsUpdateDto newsUpdateDto) {
         News updatedNews = newsService.update(id, newsUpdateDto);
-        return ResponseEntity.ok(newsMapper.toVo(updatedNews));
+        return ResponseEntity.ok(newsMapper.toUpdateVo(updatedNews));
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")

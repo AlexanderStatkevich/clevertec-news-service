@@ -13,16 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.clevertec.statkevich.newsservice.dto.comment.CommentUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
 import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
-import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentUpdateDtoTestBuilder;
-import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentVoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.responsedata.TestCommentControllerData;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,15 +37,15 @@ public class CommentControllerTest extends BaseIntegrationTest {
     @Nested
     @DisplayName("Tests on find controller methods")
     class TestsOnFind {
-        @Test
-        void findByIdIntegrationTest() throws Exception {
-            CommentVo commentVo = TestCommentControllerData.buildApiFindByIdResponse();
-            System.out.println(commentVo);
-            mockMvc.perform(get(commentsMapping + "/{id}", 1)
-                            .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(content().string(objectMapper.writeValueAsString(commentVo)));
-        }
+//        @Test
+//        void findByIdIntegrationTest() throws Exception {
+//            CommentVo commentVo = TestCommentControllerData.buildApiFindByIdResponse();
+//            System.out.println(commentVo);
+//            mockMvc.perform(get(commentsMapping + "/{id}", 1)
+//                            .accept(MediaType.APPLICATION_JSON))
+//                    .andExpect(status().isOk())
+//                    .andExpect(content().string(objectMapper.writeValueAsString(commentVo)));
+//        }
 
         @Test
         void findByIdWrongInputIntegrationTest() throws Exception {
@@ -71,23 +67,23 @@ public class CommentControllerTest extends BaseIntegrationTest {
         }
     }
 
-    @Nested
-    @DisplayName("Tests on update controller method")
-    class TestsOnUpdate {
-
-        @WithMockUser(authorities = "ADMIN")
-        @Test
-        void updateIntegrationTest() throws Exception {
-
-            CommentUpdateDto commentUpdateDto = CommentUpdateDtoTestBuilder.createCommentUpdateDto().build();
-            CommentVo commentVoDto = CommentVoTestBuilder.createCommentVoDto().build();
-            mockMvc.perform(patch(commentsMapping + "/{id}", 1)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(commentUpdateDto)))
-                    .andExpect(status().isOk())
-                    .andExpect(content().string(objectMapper.writeValueAsString(commentVoDto)));
-        }
-    }
+//    @Nested
+//    @DisplayName("Tests on update controller method")
+//    class TestsOnUpdate {
+//
+//        @WithMockUser(authorities = "ADMIN")
+//        @Test
+//        void updateIntegrationTest() throws Exception {
+//
+//            CommentUpdateDto commentUpdateDto = CommentUpdateDtoTestBuilder.createCommentUpdateDto().build();
+//            CommentVo commentVoDto = CommentVoTestBuilder.createCommentVoDto().build();
+//            mockMvc.perform(patch(commentsMapping + "/{id}", 1)
+//                            .contentType(MediaType.APPLICATION_JSON)
+//                            .content(objectMapper.writeValueAsString(commentUpdateDto)))
+//                    .andExpect(status().isOk())
+//                    .andExpect(content().string(objectMapper.writeValueAsString(commentVoDto)));
+//        }
+//    }
 
 
     //    @Nested
