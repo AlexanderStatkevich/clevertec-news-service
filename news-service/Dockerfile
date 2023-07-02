@@ -22,9 +22,9 @@ COPY news-service/src/ ./src
 
 WORKDIR .
 
-RUN gradle -b /starter-exception-handler/build.gradle publishToMavenLocal --no-daemon
-RUN gradle -b /starter-logging/build.gradle publishToMavenLocal --no-daemon
-RUN gradle -b /news-service/build.gradle build --no-daemon
+RUN gradle -b /starter-exception-handler/build.gradle publishToMavenLocal \
+&& gradle -b /starter-logging/build.gradle publishToMavenLocal \
+&& gradle -b /news-service/build.gradle build
 
 FROM openjdk:17-alpine
 

@@ -8,6 +8,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.statkevich.newsservice.domain.Comment;
@@ -71,11 +74,13 @@ public class CommentServiceImpl implements CommentService {
     @CacheEvict(value = "comments", allEntries = true)
     public Comment update(Long id, CommentUpdateDto commentUpdateDto) {
         Comment comment = findById(id);
-        commentMapper.map(commentUpdateDto, comment);
-        commentRepository.save(comment);
-        return comment;
+        if (isCommentOwner(comment)) {
+            commentMapper.map(commentUpdateDto, comment);
+            commentRepository.save(comment);
+            return comment;
+        }
+        throw new AccessDeniedException("modifying prohibited");
     }
-
 
     @Override
     @Transactional
@@ -84,6 +89,17 @@ public class CommentServiceImpl implements CommentService {
             @CacheEvict(value = "comments", allEntries = true)
     })
     public void delete(Long id) {
-        commentRepository.deleteById(id);
+        Comment comment = findById(id);
+        if (isCommentOwner(comment)) {
+            commentRepository.deleteById(id);
+        }
+        throw new AccessDeniedException("modifying prohibited");
+    }
+
+    private boolean isCommentOwner(Comment comment) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernamePrincipal = principal.getUsername();
+        String username = comment.getUsername();
+        return username.equals(usernamePrincipal);
     }
 }
