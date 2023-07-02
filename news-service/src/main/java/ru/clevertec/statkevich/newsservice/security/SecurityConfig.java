@@ -3,7 +3,6 @@ package ru.clevertec.statkevich.newsservice.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -49,10 +48,7 @@ public class SecurityConfig {
                                 .authenticationEntryPoint(authEntryPoint)
                                 .accessDeniedHandler(jwtDeniedHandler)
                 )
-                .authorizeHttpRequests((req) -> req
-                        .requestMatchers(HttpMethod.GET, "/api/v1/news").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/comments").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests((req) -> req.anyRequest().permitAll())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

@@ -15,6 +15,8 @@ public record NewsVo(
 
         String text,
 
+        String username,
+
         Page<CommentVo> commentVos
 ) {
 }

@@ -1,6 +1,7 @@
 package ru.clevertec.statkevich.newsservice.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 import ru.clevertec.statkevich.newsservice.domain.News;
@@ -12,16 +13,19 @@ import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
 /**
  * Mapper for generation entity from dto and vice versa via MapStruct.
  */
-@Mapper
+
+
+@Mapper(uses = UsernameMapper.class)
 public interface NewsMapper {
 
-    NewsVo toVo(News news);
+    NewsVo toVo(News source);
 
     NewsVo toVo(News news, Page<CommentVo> commentVos);
 
-    News toEntity(NewsCreateDto newsCreateDto);
+    @Mapping(source = "source", target = "username", qualifiedByName = "getUsername")
+    News toEntity(NewsCreateDto source);
 
-    News toEntity(NewsUpdateDto newsUpdateDto);
+    News toEntity(NewsUpdateDto source);
 
     void map(NewsUpdateDto source, @MappingTarget News target);
 }

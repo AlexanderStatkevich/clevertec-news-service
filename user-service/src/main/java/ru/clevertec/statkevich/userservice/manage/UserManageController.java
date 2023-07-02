@@ -24,6 +24,9 @@ import ru.clevertec.statkevich.userservice.mapper.UserMapper;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Manage controller provides user interface to API for admins.
+ */
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ADMIN')")
 @RestController
@@ -41,7 +44,7 @@ public class UserManageController {
     }
 
     @GetMapping
-    public Page<UserDto> getList(Pageable pageable) {
+    public Page<UserDto> findAll(Pageable pageable) {
         Page<User> userPage = userManageService.findAll(pageable);
         return userPage.map(mapper::toDto);
     }

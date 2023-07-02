@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ru.clevertec.statkevich.newsservice.dto.user.UserAuthorityDto;
 import ru.clevertec.statkevich.newsservice.security.client.ValidationClient;
 
 import java.io.IOException;
@@ -37,7 +39,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
         final String token = header.split(" ")[1].trim();
 
-        UsernamePasswordAuthenticationToken authentication = validationClient.validate(token);
+        UserAuthorityDto userAuthorityDto = validationClient.validate(token);
+        String username = userAuthorityDto.username();
+        String authority = userAuthorityDto.authority();
+
+        UserDetails userDetails = new JwtUserDetails(username, authority);
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities());
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

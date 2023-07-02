@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -37,7 +37,8 @@ import ru.clevertec.statkevich.newsservice.service.api.NewsService;
 @RequestMapping(path = "/api/v1/news")
 public class NewsController {
 
-    public static final int PAGE_SIZE = 20;
+    @Value("${spring.data.rest.default-page-size}")
+    public int PAGE_SIZE;
     private final NewsService newsService;
 
     private final CommentService commentService;
@@ -45,12 +46,10 @@ public class NewsController {
 
     private final CommentMapper commentMapper;
 
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Long> create(@Valid @RequestBody NewsCreateDto newsCreateDto) {
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal.getUsername();
         News news = newsMapper.toEntity(newsCreateDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.create(news).getId());
     }
@@ -64,14 +63,14 @@ public class NewsController {
         return ResponseEntity.ok(newsVo);
     }
 
+
     @GetMapping
-    @SneakyThrows
     public ResponseEntity<Page<NewsVo>> findAll(Pageable pageable) {
         Page<News> newsPage = newsService.findAll(pageable);
         return ResponseEntity.ok(newsPage.map(newsMapper::toVo));
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     @SneakyThrows
     public ResponseEntity<Page<NewsVo>> findAllFiltered(@RequestParam(name = "filter") String filter, Pageable pageable) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -80,7 +79,7 @@ public class NewsController {
         return ResponseEntity.ok(newsPage.map(newsMapper::toVo));
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @PatchMapping("/{id}")
     public ResponseEntity<NewsVo> update(@PathVariable("id") Long id,
                                          @Valid @RequestBody NewsUpdateDto newsUpdateDto) {
@@ -88,6 +87,7 @@ public class NewsController {
         return ResponseEntity.ok(newsMapper.toVo(updatedNews));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         newsService.delete(id);

@@ -2,10 +2,11 @@ CREATE SCHEMA IF NOT EXISTS data;
 
 CREATE TABLE IF NOT EXISTS data.news
 (
-    id     bigserial PRIMARY KEY,
-    "time" timestamp(6) WITHOUT TIME ZONE,
-    text   character varying(255),
-    title  character varying(255)
+    id       bigserial PRIMARY KEY,
+    "time"   timestamp(6) WITHOUT TIME ZONE,
+    title    character varying(255),
+    text     character varying(255),
+    username character varying(255)
 );
 
 

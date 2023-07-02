@@ -48,6 +48,7 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
     networks:
       - news_network
+    depends_on:
       user-db:
         condition: service_started
       config-server:

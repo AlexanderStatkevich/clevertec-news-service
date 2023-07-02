@@ -21,7 +21,7 @@ import java.util.UUID;
 public abstract class BaseEntityWithDateTime {
 
     @Id
-    @Column(name = "uuid", updatable = false)
+    @Column(name = "id", updatable = false)
     private UUID uuid;
     @Column(name = "date_time_create")
     private LocalDateTime dateTimeCreate;

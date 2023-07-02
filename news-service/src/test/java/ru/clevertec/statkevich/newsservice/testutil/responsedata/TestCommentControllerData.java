@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class TestCommentControllerData {
 
-    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     static ObjectMapper objectMapper = new Jackson2ObjectMapperBuilder()
@@ -29,12 +29,12 @@ public class TestCommentControllerData {
             .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DATE_TIME_FORMAT)).build();
 
     public static CommentVo buildApiFindByIdResponse() throws IOException {
-        String json = load("__files/news_controller/api_find_by_id_response.json");
+        String json = load("__files/comment_controller/api_find_by_id_response.json");
         return objectMapper.readValue(json, CommentVo.class);
     }
 
     public static Page<CommentVo> buildApiFindAllResponse() throws IOException {
-        String json = load("__files/news_controller/api_find_all_response.json");
+        String json = load("__files/comment_controller/api_find_all_response.json");
         List<CommentVo> commentVoList = objectMapper.readValue(json, new TypeReference<>() {
         });
         return new PageImpl<>(commentVoList, Pageable.ofSize(20), 1);

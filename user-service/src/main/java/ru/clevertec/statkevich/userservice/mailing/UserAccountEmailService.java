@@ -5,6 +5,9 @@ import ru.clevertec.statkevich.userservice.dto.EmailDto;
 
 import java.util.Map;
 
+/**
+ * Class responsible for sending email to user via {@link UserAccountClient}
+ */
 @Service
 public class UserAccountEmailService {
 

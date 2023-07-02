@@ -20,6 +20,3 @@ spring:
     test-connection: false
   application:
     name: email-service
-
-server:
-  port: 3333

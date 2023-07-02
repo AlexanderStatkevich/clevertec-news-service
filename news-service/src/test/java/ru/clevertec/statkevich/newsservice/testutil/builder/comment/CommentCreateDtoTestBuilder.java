@@ -12,9 +12,9 @@ import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 @With
 public class CommentCreateDtoTestBuilder implements Builder<CommentCreateDto> {
 
-    private String text;
+    private String text = "text";
 
-    private Long newsId;
+    private Long newsId = 1L;
 
     public static CommentCreateDtoTestBuilder createCommentCreateDto() {
         return new CommentCreateDtoTestBuilder();

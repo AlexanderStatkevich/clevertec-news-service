@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    @Cacheable(value = "comments", key = "#pageable.pageSize+#pageable.pageNumber")
+    @Cacheable(value = "comments", key = "'size' + #pageable.pageSize + 'pageNumber' + #pageable.pageNumber")
     public Page<Comment> findAll(Pageable pageable) {
         return commentRepository.findAll(pageable);
     }
@@ -60,7 +60,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Cacheable(value = "comments", key = "#pageable.pageSize+#pageable.pageNumber")
+    @Cacheable(value = "comments", key = "'size' + #pageable.pageSize + 'pageNumber' + #pageable.pageNumber")
     public Page<Comment> findAllFiltered(Filter<Comment> filter, Pageable pageable) {
         return commentRepository.findAll(filter, pageable);
     }

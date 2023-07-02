@@ -12,7 +12,7 @@ import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 @With
 public class CommentUpdateDtoTestBuilder implements Builder<CommentUpdateDto> {
 
-    private String text;
+    private String text = "text";
 
 
     public static CommentUpdateDtoTestBuilder createCommentUpdateDto() {

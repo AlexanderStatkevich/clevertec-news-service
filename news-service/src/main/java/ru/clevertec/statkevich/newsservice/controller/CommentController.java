@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,6 +28,7 @@ import ru.clevertec.statkevich.newsservice.filter.Filter;
 import ru.clevertec.statkevich.newsservice.mapper.CommentMapper;
 import ru.clevertec.statkevich.newsservice.service.api.CommentService;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/v1/comments")
@@ -35,7 +38,7 @@ public class CommentController {
 
     private final CommentMapper commentMapper;
 
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Long> create(@Valid @RequestBody CommentCreateDto commentCreateDto) {
@@ -53,11 +56,12 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<Page<CommentVo>> findAll(Pageable pageable) {
+        log.info("findAll called");
         Page<Comment> commentPage = commentService.findAll(pageable);
         return ResponseEntity.ok(commentPage.map(commentMapper::toVo));
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     @SneakyThrows
     public ResponseEntity<Page<CommentVo>> findAllFiltered(@RequestParam(name = "filter") String filter, Pageable pageable) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -67,6 +71,7 @@ public class CommentController {
     }
 
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @PatchMapping("/{id}")
     public ResponseEntity<CommentVo> update(@PathVariable("id") Long id,
                                             @Valid @RequestBody CommentUpdateDto commentUpdateDto) {
@@ -74,6 +79,7 @@ public class CommentController {
         return ResponseEntity.ok(commentMapper.toVo(updatedComment));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         commentService.delete(id);

@@ -4,7 +4,6 @@ package ru.clevertec.statkevich.userservice.account;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.clevertec.statkevich.userservice.dto.EmailVerificationDto;
+import ru.clevertec.statkevich.userservice.dto.UserAuthorityDto;
 import ru.clevertec.statkevich.userservice.dto.UserDto;
 import ru.clevertec.statkevich.userservice.dto.UserLoginDto;
 import ru.clevertec.statkevich.userservice.dto.UserRegistrationDto;
 
+
+/**
+ * Account controller provides user interface to API for registration, verification,login.
+ * Also accept request for validation of JWT from another services.
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
@@ -51,7 +56,7 @@ public class UserAccountController {
 
     @GetMapping(path = "/validate")
     @ResponseStatus(value = HttpStatus.OK)
-    public UsernamePasswordAuthenticationToken validate(@RequestParam("jwt") String jwt) {
+    public UserAuthorityDto validate(@RequestParam("jwt") String jwt) {
         return userAccountService.validate(jwt);
     }
 

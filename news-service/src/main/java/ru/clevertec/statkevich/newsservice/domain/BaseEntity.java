@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity {
+
     /**
      * Unique identifier of entity
      */
@@ -41,6 +42,9 @@ public abstract class BaseEntity {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "username")
+    private String username;
 
     @PrePersist
     void initDateCreate() {

@@ -14,11 +14,12 @@ import java.time.LocalDateTime;
 @With
 public class CommentVoTestBuilder implements Builder<CommentVo> {
 
-    private Long id;
+    private Long id = 1L;
 
     private LocalDateTime time;
-    private String text;
-    private Long newsId;
+    private String text = "text";
+    private String username = "username";
+    private Long newsId = 1L;
 
     public static CommentVoTestBuilder createCommentVoDto() {
         return new CommentVoTestBuilder();
@@ -26,7 +27,7 @@ public class CommentVoTestBuilder implements Builder<CommentVo> {
 
     @Override
     public CommentVo build() {
-        return new CommentVo(id, time, text, newsId);
+        return new CommentVo(id, time, text, username);
     }
 
 }

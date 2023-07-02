@@ -1,8 +1,8 @@
 package ru.clevertec.statkevich.userservice.account;
 
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import ru.clevertec.statkevich.userservice.dto.EmailVerificationDto;
+import ru.clevertec.statkevich.userservice.dto.UserAuthorityDto;
 import ru.clevertec.statkevich.userservice.dto.UserDto;
 import ru.clevertec.statkevich.userservice.dto.UserLoginDto;
 import ru.clevertec.statkevich.userservice.dto.UserRegistrationDto;
@@ -16,5 +16,5 @@ public interface IUserAccountService {
 
     UserDto getInfo();
 
-    UsernamePasswordAuthenticationToken validate(String jwt);
+    UserAuthorityDto validate(String jwt);
 }

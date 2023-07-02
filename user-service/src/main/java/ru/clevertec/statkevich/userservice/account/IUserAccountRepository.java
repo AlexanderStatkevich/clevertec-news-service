@@ -14,6 +14,6 @@ public interface IUserAccountRepository extends CrudRepository<User, UUID> {
     User findUserByEmail(String email);
 
     @Modifying
-    @Query("update User u set status = by.itacademy.jd2.mkjd295224.fitnessstudio.users.domain.UserStatus.ACTIVATED where email = ?1")
+    @Query("update User u set status = ru.clevertec.statkevich.userservice.domain.UserStatus.ACTIVATED where email = ?1")
     void activateUserByEmail(String email);
 }

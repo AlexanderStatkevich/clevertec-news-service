@@ -41,6 +41,9 @@ public class LfuCache extends AbstractValueAdaptingCache implements Cache {
     @Override
     protected Object lookup(Object key) {
         Node node = pointerMap.get(key);
+        if (node == null) {
+            return null;
+        }
         node.increment();
         return this.pointerMap.get(key).value;
     }

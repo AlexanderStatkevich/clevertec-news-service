@@ -44,14 +44,15 @@ public class LruCache extends AbstractValueAdaptingCache implements Cache {
         if (pointerMap.containsKey(key)) {
             Node currentNode = pointerMap.get(key);
             cacheObjectList.remove(currentNode.key);
+            cacheObjectList.addFirst(key);
+            return this.pointerMap.get(key).value();
         } else {
             if (cacheObjectList.size() == cacheCapacity) {
                 Object temp = cacheObjectList.removeLast();
                 pointerMap.remove(temp);
             }
+            return null;
         }
-        cacheObjectList.addFirst(key);
-        return this.pointerMap.get(key);
     }
 
     @Override

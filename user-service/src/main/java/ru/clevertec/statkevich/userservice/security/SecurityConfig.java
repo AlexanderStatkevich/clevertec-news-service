@@ -4,10 +4,10 @@ package ru.clevertec.statkevich.userservice.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,8 +22,9 @@ import ru.clevertec.statkevich.userservice.security.jwt.JwtFilter;
 
 
 @RequiredArgsConstructor
-@Configuration
+@EnableMethodSecurity
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     private final JwtAuthEntryPoint authEntryPoint;
@@ -45,16 +46,11 @@ public class SecurityConfig {
                                 .authenticationEntryPoint(authEntryPoint)
                                 .accessDeniedHandler(jwtDeniedHandler)
                 )
-                .authorizeHttpRequests((req) -> req
-                        .requestMatchers(HttpMethod.GET, "/api/v1/users/verification").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users/registration").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests((req) -> req.anyRequest().permitAll())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

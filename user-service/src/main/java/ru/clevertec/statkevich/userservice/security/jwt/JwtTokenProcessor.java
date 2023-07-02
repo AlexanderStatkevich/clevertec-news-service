@@ -9,15 +9,11 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import ru.clevertec.statkevich.userservice.domain.User;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +24,6 @@ public class JwtTokenProcessor {
 
     public static final int DURATION = 7;
     private final JwtProperty property;
-    private final UserDetailsService userDetailsService;
 
 
     public String generateAccessToken(User user) {
@@ -90,21 +85,5 @@ public class JwtTokenProcessor {
             log.error("JWT claims string is empty - {}", ex.getMessage());
         }
         return false;
-    }
-
-    public UsernamePasswordAuthenticationToken validateAndReturnAuthenticationToken(String jwt) {
-
-        boolean validated = validate(jwt);
-        if (!validated) {
-            return null;
-        }
-
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(jwt));
-
-        return new UsernamePasswordAuthenticationToken(userDetails,
-                null,
-                userDetails == null
-                        ? List.of()
-                        : userDetails.getAuthorities());
     }
 }

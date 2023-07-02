@@ -10,6 +10,6 @@ public record CommentVo(
 
         String text,
 
-        Long newsId
+        String username
 ) {
 }

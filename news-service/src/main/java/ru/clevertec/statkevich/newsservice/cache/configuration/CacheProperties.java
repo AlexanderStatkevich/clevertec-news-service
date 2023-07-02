@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
  * @param type represent the selected cache type
  */
 @Validated
-@ConfigurationProperties("news-service.cache")
+@ConfigurationProperties("settings.cache")
 public record CacheProperties(
         @NotNull
         CacheType type

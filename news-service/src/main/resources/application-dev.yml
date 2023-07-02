@@ -11,4 +11,4 @@ spring:
 server:
   tomcat:
     relaxed-query-chars: '|,{,},[,]'
-
+  port: 8812

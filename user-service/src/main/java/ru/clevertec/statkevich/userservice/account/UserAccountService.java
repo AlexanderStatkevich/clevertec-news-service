@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,9 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.statkevich.userservice.domain.User;
-import ru.clevertec.statkevich.userservice.domain.UserRole;
 import ru.clevertec.statkevich.userservice.domain.UserStatus;
 import ru.clevertec.statkevich.userservice.dto.EmailVerificationDto;
+import ru.clevertec.statkevich.userservice.dto.UserAuthorityDto;
 import ru.clevertec.statkevich.userservice.dto.UserDto;
 import ru.clevertec.statkevich.userservice.dto.UserLoginDto;
 import ru.clevertec.statkevich.userservice.dto.UserRegistrationDto;
@@ -61,7 +60,6 @@ public class UserAccountService implements IUserAccountService, UserDetailsServi
         user.setUuid(UUID.randomUUID());
         user.setPassword(passwordEncoder.encode(userRegistrationDto.password()));
         user.setStatus(UserStatus.WAITING_ACTIVATION);
-        user.setRole(UserRole.USER);
         repository.save(user);
         applicationEventPublisher.publishEvent(new UserRegisteredEvent(user));
     }
@@ -111,7 +109,18 @@ public class UserAccountService implements IUserAccountService, UserDetailsServi
     }
 
     @Override
-    public UsernamePasswordAuthenticationToken validate(String jwt) {
-        return jwtTokenProcessor.validateAndReturnAuthenticationToken(jwt);
+    public UserAuthorityDto validate(String jwt) {
+        boolean validated = jwtTokenProcessor.validate(jwt);
+        if (!validated) {
+            throw new AccessDeniedException("access restricted");
+        }
+        String username = jwtTokenProcessor.getUsername(jwt);
+        UserDetails userDetails = loadUserByUsername(username);
+        return userDetails.getAuthorities()
+                .stream()
+                .map(Object::toString)
+                .map(auth -> new UserAuthorityDto(username, auth))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("role doesn't present"));
     }
 }
