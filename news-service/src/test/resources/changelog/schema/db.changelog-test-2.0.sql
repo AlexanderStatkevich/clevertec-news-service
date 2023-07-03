@@ -1,4 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS data;
 
 INSERT INTO data.news ("time", text, title, username)
 VALUES ('2021-10-01 10:00:00', 'First test text', 'First News', 'journalist1'),

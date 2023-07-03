@@ -8,9 +8,9 @@ spring:
       hibernate:
         default_schema: data
   datasource:
-    url: jdbc:postgresql://localhost:5777/newsDB
-    username: postgres
-    password: Aries1994
+    url: jdbc:postgresql://localhost:PORT/DB_NAME
+    username: changeMe
+    password: changeMe
     driverClassName: org.postgresql.Driver
   cloud:
     config:

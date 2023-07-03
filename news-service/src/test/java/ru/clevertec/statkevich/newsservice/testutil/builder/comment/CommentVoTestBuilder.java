@@ -16,9 +16,9 @@ public class CommentVoTestBuilder implements Builder<CommentVo> {
 
     private Long id = 1L;
 
-    private LocalDateTime time;
+    private LocalDateTime time = LocalDateTime.now();
     private String text = "text";
-    private String username = "username";
+    private String username = "subscriber1";
     private Long newsId = 1L;
 
     public static CommentVoTestBuilder createCommentVoDto() {

@@ -72,8 +72,9 @@ public class NewsServiceImpl implements NewsService {
         News news = findById(id);
         if (isNewsOwner(news)) {
             newsRepository.deleteById(id);
+        } else {
+            throw new AccessDeniedException("modifying prohibited");
         }
-        throw new AccessDeniedException("modifying prohibited");
     }
 
     private boolean isNewsOwner(News news) {

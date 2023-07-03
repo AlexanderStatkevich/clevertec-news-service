@@ -1,7 +1,0 @@
-spring:
-  datasource:
-    username: test
-    password: test
-  cloud:
-    config:
-      enabled: false

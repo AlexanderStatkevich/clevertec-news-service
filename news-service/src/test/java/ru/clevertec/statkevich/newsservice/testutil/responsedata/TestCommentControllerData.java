@@ -33,6 +33,11 @@ public class TestCommentControllerData {
         return objectMapper.readValue(json, CommentVo.class);
     }
 
+    public static CommentVo buildCommentVo() throws IOException {
+        String json = load("__files/comment_controller/comment_vo.json");
+        return objectMapper.readValue(json, CommentVo.class);
+    }
+
     public static Page<CommentVo> buildApiFindAllResponse() throws IOException {
         String json = load("__files/comment_controller/api_find_all_response.json");
         List<CommentVo> commentVoList = objectMapper.readValue(json, new TypeReference<>() {

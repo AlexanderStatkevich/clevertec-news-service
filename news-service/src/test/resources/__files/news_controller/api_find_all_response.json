@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "time": "2021-10-01T10:00:00",
+    "title": "First News",
+    "text": "First test text",
+    "username": "journalist1"
+  },
+  {
+    "id": 2,
+    "time": "2021-10-02T11:00:00",
+    "title": "Second News",
+    "text": "Second test text",
+    "username": "journalist1"
+  },
+  {
+    "id": 3,
+    "time": "2021-10-02T12:00:00",
+    "title": "Third News",
+    "text": "Third test text",
+    "username": "journalist1"
+  },
+  {
+    "id": 4,
+    "time": "2021-10-02T13:00:00",
+    "title": "Fourth News",
+    "text": "Fourth test text",
+    "username": "journalist1"
+  },
+  {
+    "id": 5,
+    "time": "2021-10-02T14:00:00",
+    "title": "Fifth News",
+    "text": "Fifth test text",
+    "username": "journalist1"
+  }
+]

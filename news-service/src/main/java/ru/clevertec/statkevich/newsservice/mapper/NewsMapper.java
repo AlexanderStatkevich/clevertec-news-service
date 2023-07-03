@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import ru.clevertec.statkevich.newsservice.domain.News;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
+import ru.clevertec.statkevich.newsservice.dto.news.NewsSingleVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
@@ -22,6 +23,8 @@ public interface NewsMapper {
     NewsVo toVo(News source);
 
     NewsUpdateVo toUpdateVo(News source);
+
+    NewsSingleVo toSingleVo(News source);
 
     NewsVo toVo(News news, Page<CommentVo> commentVos);
 

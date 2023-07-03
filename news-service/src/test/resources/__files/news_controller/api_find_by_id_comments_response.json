@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "time": "2021-10-01T11:00:00",
+    "text": "First text to first news",
+    "username": "subscriber1"
+  },
+  {
+    "id": 2,
+    "time": "2021-10-01T12:00:00",
+    "text": "Second text to first news",
+    "username": "subscriber2"
+  },
+  {
+    "id": 3,
+    "time": "2021-10-01T13:00:00",
+    "text": "Third text to first news",
+    "username": "subscriber3"
+  }
+]

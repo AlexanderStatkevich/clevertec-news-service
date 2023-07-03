@@ -92,8 +92,9 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = findById(id);
         if (isCommentOwner(comment)) {
             commentRepository.deleteById(id);
+        } else {
+            throw new AccessDeniedException("modifying prohibited");
         }
-        throw new AccessDeniedException("modifying prohibited");
     }
 
     private boolean isCommentOwner(Comment comment) {

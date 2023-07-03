@@ -37,8 +37,8 @@ dependencies {
             'org.springframework.cloud:spring-cloud-config-client',
             'org.liquibase:liquibase-core',
             "org.mapstruct:mapstruct:${mapstructVersion}",
-            'ru.clevertec:starter-logging:0.0.1',
-            'ru.clevertec:starter-exception-handler:0.0.1',
+            'ru.clevertec:starter-logging:1.0.0',
+            'ru.clevertec:starter-exception-handler:1.0.0',
             'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
     )
 

@@ -24,6 +24,7 @@ import ru.clevertec.statkevich.newsservice.domain.Comment;
 import ru.clevertec.statkevich.newsservice.domain.News;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
+import ru.clevertec.statkevich.newsservice.dto.news.NewsSingleVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
@@ -66,9 +67,9 @@ public class NewsController {
 
 
     @GetMapping
-    public ResponseEntity<Page<NewsVo>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<NewsSingleVo>> findAll(Pageable pageable) {
         Page<News> newsPage = newsService.findAll(pageable);
-        return ResponseEntity.ok(newsPage.map(newsMapper::toVo));
+        return ResponseEntity.ok(newsPage.map(newsMapper::toSingleVo));
     }
 
     @GetMapping("/filter")

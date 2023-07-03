@@ -6,4 +6,12 @@ spring:
     config:
       enabled: false
   liquibase:
-    change-log: changelog/db.changelog-master-test.yaml
+    change-log: classpath:changelog/db.changelog-master-test.yaml
+  data:
+    rest:
+      default-page-size: 30
+settings:
+  cache:
+    type: LFU
+  user-service:
+    uri: http://localhost:8080/api/v1/users
