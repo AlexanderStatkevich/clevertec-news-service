@@ -4,7 +4,7 @@ services:
     build: config-server
     image: config-server:1.0.0
     healthcheck:
-      test: curl --fail http://localhost:8888 || exit 1
+      test: wget -qO- localhost:8888/actuator/health | grep UP || exit 1
       interval: 2s
       timeout: 20s
       retries: 5
@@ -101,6 +101,14 @@ services:
       - "80:80"
     networks:
       - news_network
+    depends_on:
+      news-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+      email-service:
+        condition: service_started
+
 
 networks:
   news_network:

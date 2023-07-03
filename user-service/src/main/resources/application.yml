@@ -12,9 +12,6 @@ spring:
     username: changeMe
     password: changeMe
     driverClassName: org.postgresql.Driver
-  cloud:
-    config:
-      enabled: false
   application:
     name: user-service
 settings:

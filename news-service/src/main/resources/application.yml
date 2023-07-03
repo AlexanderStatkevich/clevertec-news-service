@@ -1,7 +1,4 @@
 spring:
-  cloud:
-    config:
-      enabled: false
   jpa:
     database: POSTGRESQL
     hibernate:

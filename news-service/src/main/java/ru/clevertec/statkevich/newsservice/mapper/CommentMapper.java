@@ -22,8 +22,6 @@ public interface CommentMapper {
     @Mapping(source = "source", target = "username", qualifiedByName = "getUsername")
     Comment toEntity(CommentCreateDto source);
 
-    Comment toEntity(CommentUpdateDto source);
-
     void map(CommentUpdateDto source, @MappingTarget Comment target);
 
 }

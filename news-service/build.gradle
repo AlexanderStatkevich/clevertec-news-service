@@ -59,7 +59,9 @@ dependencies {
             'org.springframework.boot:spring-boot-testcontainers',
             'org.springframework.security:spring-security-test',
             'org.testcontainers:junit-jupiter',
-            'org.testcontainers:postgresql'
+            'org.testcontainers:postgresql',
+            'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+
     )
 
     testCompileOnly 'org.projectlombok:lombok'

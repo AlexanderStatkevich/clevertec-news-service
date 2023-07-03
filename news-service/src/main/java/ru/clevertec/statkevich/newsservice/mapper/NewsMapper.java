@@ -31,7 +31,5 @@ public interface NewsMapper {
     @Mapping(source = "source", target = "username", qualifiedByName = "getUsername")
     News toEntity(NewsCreateDto source);
 
-    News toEntity(NewsUpdateDto source);
-
     void map(NewsUpdateDto source, @MappingTarget News target);
 }
