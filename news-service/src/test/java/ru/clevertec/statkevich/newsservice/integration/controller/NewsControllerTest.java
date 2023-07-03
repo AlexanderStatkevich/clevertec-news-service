@@ -8,17 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
-import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
 import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsCreateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsUpdateDtoTestBuilder;
-import ru.clevertec.statkevich.newsservice.testutil.responsedata.TestNewsControllerData;
+import ru.clevertec.statkevich.newsservice.testutil.responsedata.TestNewsControllerJsonData;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,7 +34,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
 
     private final ObjectMapper objectMapper;
 
-    String newsMapping = "/api/v1/news";
+    private final String NEWS_MAPPING = "/api/v1/news";
 
 
     @Nested
@@ -44,29 +42,29 @@ public class NewsControllerTest extends BaseIntegrationTest {
     class TestsOnFind {
         @Test
         void findByIdIntegrationTest() throws Exception {
-            NewsVo newsVo = TestNewsControllerData.buildApiFindByIdResponse();
-            mockMvc.perform(get(newsMapping + "/{id}", 1)
+            String newsVo = TestNewsControllerJsonData.readApiFindByIdResponse();
+            mockMvc.perform(get(NEWS_MAPPING + "/{id}", 1)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(content().string(objectMapper.writeValueAsString(newsVo)));
+                    .andExpect(content().json(newsVo));
         }
 
         @Test
         void findByIdWrongInputIntegrationTest() throws Exception {
 
-            mockMvc.perform(get(newsMapping + "/{id}", 16)
+            mockMvc.perform(get(NEWS_MAPPING + "/{id}", 16)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
         }
 
         @Test
         void findAllIntegrationTest() throws Exception {
-            Page<NewsVo> newsVos = TestNewsControllerData.buildApiFindAllResponse();
+            String newsVos = TestNewsControllerJsonData.readApiFindAllResponse();
 
-            mockMvc.perform(get(newsMapping)
+            mockMvc.perform(get(NEWS_MAPPING)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(content().string(objectMapper.writeValueAsString(newsVos)));
+                    .andExpect(content().json(newsVos));
         }
     }
 
@@ -74,12 +72,26 @@ public class NewsControllerTest extends BaseIntegrationTest {
     @DisplayName("Tests on update controller method")
     class TestsOnUpdate {
 
+        @WithMockUser(username = "journalist1", authorities = "JOURNALIST")
+        @Test
+        void updateIntegrationTest() throws Exception {
+
+            NewsUpdateDto newsUpdateDto = NewsUpdateDtoTestBuilder.createNewsUpdateDto().build();
+            String response = TestNewsControllerJsonData.readUpdateResponse();
+
+            mockMvc.perform(patch(NEWS_MAPPING + "/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(newsUpdateDto)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(response));
+        }
+
         @WithMockUser(username = "subscriber", authorities = "ADMIN")
         @Test
         void updateWrongUserRefuse() throws Exception {
 
             NewsUpdateDto newsUpdateDto = NewsUpdateDtoTestBuilder.createNewsUpdateDto().build();
-            mockMvc.perform(patch(newsMapping + "/{id}", 1)
+            mockMvc.perform(patch(NEWS_MAPPING + "/{id}", 1)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(newsUpdateDto)))
                     .andExpect(status().is5xxServerError());
@@ -90,10 +102,21 @@ public class NewsControllerTest extends BaseIntegrationTest {
         void updateRefuseTest() throws Exception {
 
             NewsUpdateDto newsUpdateDto = NewsUpdateDtoTestBuilder.createNewsUpdateDto().build();
-            mockMvc.perform(patch(newsMapping + "/{id}", 1)
+            mockMvc.perform(patch(NEWS_MAPPING + "/{id}", 1)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(newsUpdateDto)))
                     .andExpect(status().is5xxServerError());
+        }
+
+        @WithMockUser(username = "subscriber1", authorities = "SUBSCRIBER")
+        @Test
+        void updatePassWrongValueExpect4xx() throws Exception {
+
+            NewsUpdateDto newsUpdateDto = NewsUpdateDtoTestBuilder.createNewsUpdateDto().withText(null).build();
+            mockMvc.perform(patch(NEWS_MAPPING + "/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(newsUpdateDto)))
+                    .andExpect(status().isBadRequest());
         }
     }
 
@@ -107,7 +130,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
 
             NewsCreateDto newsCreateDto = NewsCreateDtoTestBuilder.createNewsCreateDto().build();
 
-            mockMvc.perform(post(newsMapping)
+            mockMvc.perform(post(NEWS_MAPPING)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(newsCreateDto)))
                     .andExpect(status().isCreated())
@@ -121,7 +144,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
             NewsCreateDto newsCreateDto = NewsCreateDtoTestBuilder.createNewsCreateDto().withText(null).build();
 
 
-            mockMvc.perform(post(newsMapping)
+            mockMvc.perform(post(NEWS_MAPPING)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(newsCreateDto)))
                     .andExpect(status().isBadRequest());
@@ -136,7 +159,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
         @Test
         void deleteByAdminTest() throws Exception {
 
-            mockMvc.perform(delete(newsMapping + "/{id}", 1)
+            mockMvc.perform(delete(NEWS_MAPPING + "/{id}", 1)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
@@ -145,7 +168,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
         @Test
         void deleteByJournalistTest() throws Exception {
 
-            mockMvc.perform(delete(newsMapping + "/{id}", 1)
+            mockMvc.perform(delete(NEWS_MAPPING + "/{id}", 1)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
@@ -154,7 +177,7 @@ public class NewsControllerTest extends BaseIntegrationTest {
         @Test
         void deleteRefuseTest() throws Exception {
 
-            mockMvc.perform(delete(newsMapping + "/{id}", 1)
+            mockMvc.perform(delete(NEWS_MAPPING + "/{id}", 1)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().is5xxServerError());
         }

@@ -3,9 +3,7 @@ package ru.clevertec.statkevich.newsservice.testutil.builder.news;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.With;
-import org.springframework.data.domain.Page;
-import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
-import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
+import ru.clevertec.statkevich.newsservice.dto.news.NewsSingleVo;
 import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 
 import java.time.LocalDateTime;
@@ -15,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-public class NewsVoTestBuilder implements Builder<NewsVo> {
+public class NewsSingleVoTestBuilder implements Builder<NewsSingleVo> {
 
     private Long id = 1L;
 
@@ -27,15 +25,14 @@ public class NewsVoTestBuilder implements Builder<NewsVo> {
 
     private String username = "username";
 
-    private Page<CommentVo> commentVos;
 
-    public static NewsVoTestBuilder createNewsVoDto() {
-        return new NewsVoTestBuilder();
+    public static NewsSingleVoTestBuilder createNewsVoDto() {
+        return new NewsSingleVoTestBuilder();
     }
 
     @Override
-    public NewsVo build() {
-        return new NewsVo(id, time, title, text, username, commentVos);
+    public NewsSingleVo build() {
+        return new NewsSingleVo(id, time, title, text, username);
     }
 
 }

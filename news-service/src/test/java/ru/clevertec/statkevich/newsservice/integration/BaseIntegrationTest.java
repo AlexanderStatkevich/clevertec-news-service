@@ -1,30 +1,25 @@
 package ru.clevertec.statkevich.newsservice.integration;
 
 
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-
-@ActiveProfiles("test")
 @Transactional
+@ActiveProfiles("test")
+@Testcontainers
 @SpringBootTest
 public class BaseIntegrationTest {
 
+    @ServiceConnection
     private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.3-alpine");
 
-    @BeforeAll
-    static void init() {
-        postgreSQLContainer.start();
-    }
-
-    @DynamicPropertySource
-    static void setup(DynamicPropertyRegistry registry) {
-
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+    static {
+        postgreSQLContainer
+                .withReuse(true)
+                .start();
     }
 }

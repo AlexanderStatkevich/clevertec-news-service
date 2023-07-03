@@ -12,9 +12,9 @@ import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 @With
 public class NewsCreateDtoTestBuilder implements Builder<NewsCreateDto> {
 
-    private String title;
+    private String title = "title";
 
-    private String text;
+    private String text = "text";
 
     public static NewsCreateDtoTestBuilder createNewsCreateDto() {
         return new NewsCreateDtoTestBuilder();

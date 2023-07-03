@@ -4,5 +4,43 @@
   "title": "First News",
   "text": "First test text",
   "username": "journalist1",
-  "commentVos": ""
+  "commentVos": {
+    "content": [
+      {
+        "id": 1,
+        "time": "2021-10-01T11:00:00",
+        "text": "First text to first news",
+        "username": "subscriber1"
+      },
+      {
+        "id": 2,
+        "time": "2021-10-01T12:00:00",
+        "text": "Second text to first news",
+        "username": "subscriber2"
+      },
+      {
+        "id": 3,
+        "time": "2021-10-01T13:00:00",
+        "text": "Third text to first news",
+        "username": "subscriber3"
+      }
+    ],
+    "pageable": {
+      "sort": [],
+      "offset": 0,
+      "pageNumber": 0,
+      "pageSize": 30,
+      "unpaged": false,
+      "paged": true
+    },
+    "last": true,
+    "totalElements": 3,
+    "totalPages": 1,
+    "size": 30,
+    "number": 0,
+    "sort": [],
+    "first": true,
+    "numberOfElements": 3,
+    "empty": false
+  }
 }

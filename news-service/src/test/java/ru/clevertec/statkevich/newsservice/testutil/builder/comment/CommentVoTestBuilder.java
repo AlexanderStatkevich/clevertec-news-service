@@ -7,6 +7,7 @@ import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
 import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 
 @NoArgsConstructor
@@ -16,9 +17,10 @@ public class CommentVoTestBuilder implements Builder<CommentVo> {
 
     private Long id = 1L;
 
-    private LocalDateTime time = LocalDateTime.now();
+    private LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     private String text = "text";
-    private String username = "subscriber1";
+    private String username = "username";
+
     private Long newsId = 1L;
 
     public static CommentVoTestBuilder createCommentVoDto() {

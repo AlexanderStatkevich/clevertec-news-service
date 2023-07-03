@@ -1,37 +1,56 @@
-[
-  {
-    "id": 1,
-    "time": "2021-10-01T10:00:00",
-    "title": "First News",
-    "text": "First test text",
-    "username": "journalist1"
+{
+  "content": [
+    {
+      "id": 1,
+      "time": "2021-10-01T10:00:00",
+      "title": "First News",
+      "text": "First test text",
+      "username": "journalist1"
+    },
+    {
+      "id": 2,
+      "time": "2021-10-02T11:00:00",
+      "title": "Second News",
+      "text": "Second test text",
+      "username": "journalist1"
+    },
+    {
+      "id": 3,
+      "time": "2021-10-02T12:00:00",
+      "title": "Third News",
+      "text": "Third test text",
+      "username": "journalist1"
+    },
+    {
+      "id": 4,
+      "time": "2021-10-02T13:00:00",
+      "title": "Fourth News",
+      "text": "Fourth test text",
+      "username": "journalist1"
+    },
+    {
+      "id": 5,
+      "time": "2021-10-02T14:00:00",
+      "title": "Fifth News",
+      "text": "Fifth test text",
+      "username": "journalist1"
+    }
+  ],
+  "pageable": {
+    "sort": [],
+    "offset": 0,
+    "pageSize": 20,
+    "pageNumber": 0,
+    "unpaged": false,
+    "paged": true
   },
-  {
-    "id": 2,
-    "time": "2021-10-02T11:00:00",
-    "title": "Second News",
-    "text": "Second test text",
-    "username": "journalist1"
-  },
-  {
-    "id": 3,
-    "time": "2021-10-02T12:00:00",
-    "title": "Third News",
-    "text": "Third test text",
-    "username": "journalist1"
-  },
-  {
-    "id": 4,
-    "time": "2021-10-02T13:00:00",
-    "title": "Fourth News",
-    "text": "Fourth test text",
-    "username": "journalist1"
-  },
-  {
-    "id": 5,
-    "time": "2021-10-02T14:00:00",
-    "title": "Fifth News",
-    "text": "Fifth test text",
-    "username": "journalist1"
-  }
-]
+  "last": true,
+  "totalElements": 5,
+  "totalPages": 1,
+  "size": 20,
+  "number": 0,
+  "sort": [],
+  "numberOfElements": 5,
+  "first": true,
+  "empty": false
+}

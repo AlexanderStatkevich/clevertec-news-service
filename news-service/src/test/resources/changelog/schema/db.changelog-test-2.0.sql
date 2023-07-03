@@ -1,3 +1,10 @@
+DELETE
+FROM data.comments;
+DELETE
+FROM data.news;
+
+ALTER SEQUENCE data.comments_id_seq RESTART;
+ALTER SEQUENCE data.news_id_seq RESTART;
 
 INSERT INTO data.news ("time", text, title, username)
 VALUES ('2021-10-01 10:00:00', 'First test text', 'First News', 'journalist1'),

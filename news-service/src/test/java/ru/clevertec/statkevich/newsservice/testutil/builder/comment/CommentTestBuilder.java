@@ -8,6 +8,7 @@ import ru.clevertec.statkevich.newsservice.domain.News;
 import ru.clevertec.statkevich.newsservice.testutil.builder.api.Builder;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class CommentTestBuilder implements Builder<Comment> {
 
     private Long id = 1L;
-    private LocalDateTime time = LocalDateTime.now();
+    private LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     private String text = "text";
     private String username = "username";
     private News news = new News();
