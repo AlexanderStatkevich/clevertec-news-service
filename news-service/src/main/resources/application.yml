@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: data
+  datasource:
+    url: jdbc:postgresql://host:port/db_name
+    username: change_me
+    password: change_me
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: true
+  application:
+    name: news-service
+  data:
+    rest:
+      default-page-size: 30
+
+settings:
+  cache:
+    type: LFU
+  user-service:
+    uri: http://localhost:8080/api/v1/users
