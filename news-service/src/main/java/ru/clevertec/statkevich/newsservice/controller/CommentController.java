@@ -1,6 +1,8 @@
 package ru.clevertec.statkevich.newsservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -28,6 +30,7 @@ import ru.clevertec.statkevich.newsservice.filter.Filter;
 import ru.clevertec.statkevich.newsservice.mapper.CommentMapper;
 import ru.clevertec.statkevich.newsservice.service.api.CommentService;
 
+@Tag(name = "Comment API")
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -38,6 +41,7 @@ public class CommentController {
 
     private final CommentMapper commentMapper;
 
+    @Operation(description = "Create new entity of comment")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,14 +50,14 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.create(comment).getId());
     }
 
-
+    @Operation(description = "Get comment info by id")
     @GetMapping("/{id}")
     public ResponseEntity<CommentVo> findById(@PathVariable Long id) {
         Comment comment = commentService.findById(id);
         return ResponseEntity.ok(commentMapper.toVo(comment));
     }
 
-
+    @Operation(description = "Find all comments by page")
     @GetMapping
     public ResponseEntity<Page<CommentVo>> findAll(Pageable pageable) {
         log.info("findAll called");
@@ -61,6 +65,7 @@ public class CommentController {
         return ResponseEntity.ok(commentPage.map(commentMapper::toVo));
     }
 
+    @Operation(description = "Find all comments filtered")
     @GetMapping("/filter")
     @SneakyThrows
     public ResponseEntity<Page<CommentVo>> findAllFiltered(@RequestParam(name = "filter") String filter, Pageable pageable) {
@@ -71,6 +76,7 @@ public class CommentController {
     }
 
 
+    @Operation(description = "Update comment entity")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @PatchMapping("/{id}")
     public ResponseEntity<CommentVo> update(@PathVariable("id") Long id,
@@ -79,6 +85,7 @@ public class CommentController {
         return ResponseEntity.ok(commentMapper.toVo(updatedComment));
     }
 
+    @Operation(description = "Delete comment by id")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUBSCRIBER')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {

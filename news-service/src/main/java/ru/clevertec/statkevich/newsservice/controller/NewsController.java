@@ -1,6 +1,8 @@
 package ru.clevertec.statkevich.newsservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -34,6 +36,8 @@ import ru.clevertec.statkevich.newsservice.mapper.NewsMapper;
 import ru.clevertec.statkevich.newsservice.service.api.CommentService;
 import ru.clevertec.statkevich.newsservice.service.api.NewsService;
 
+
+@Tag(name = "News API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/v1/news")
@@ -48,6 +52,7 @@ public class NewsController {
 
     private final CommentMapper commentMapper;
 
+    @Operation(description = "Create new entity of news")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,6 +61,7 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.create(news).getId());
     }
 
+    @Operation(description = "Get news info by id")
     @GetMapping("/{id}")
     public ResponseEntity<NewsVo> findById(@PathVariable Long id) {
         News news = newsService.findById(id);
@@ -65,13 +71,14 @@ public class NewsController {
         return ResponseEntity.ok(newsVo);
     }
 
-
+    @Operation(description = "Find all news by page")
     @GetMapping
     public ResponseEntity<Page<NewsSingleVo>> findAll(Pageable pageable) {
         Page<News> newsPage = newsService.findAll(pageable);
         return ResponseEntity.ok(newsPage.map(newsMapper::toSingleVo));
     }
 
+    @Operation(description = "Find all news filtered")
     @GetMapping("/filter")
     @SneakyThrows
     public ResponseEntity<Page<NewsVo>> findAllFiltered(@RequestParam(name = "filter") String filter, Pageable pageable) {
@@ -81,6 +88,7 @@ public class NewsController {
         return ResponseEntity.ok(newsPage.map(newsMapper::toVo));
     }
 
+    @Operation(description = "Update news entity")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @PatchMapping("/{id}")
     public ResponseEntity<NewsUpdateVo> update(@PathVariable("id") Long id,
@@ -89,6 +97,7 @@ public class NewsController {
         return ResponseEntity.ok(newsMapper.toUpdateVo(updatedNews));
     }
 
+    @Operation(description = "Delete news by id")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('JOURNALIST')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
