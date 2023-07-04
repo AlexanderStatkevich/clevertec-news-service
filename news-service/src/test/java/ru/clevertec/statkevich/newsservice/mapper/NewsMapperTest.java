@@ -12,13 +12,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.clevertec.statkevich.newsservice.BaseTest;
 import ru.clevertec.statkevich.newsservice.domain.News;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsSingleVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateVo;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsVo;
-import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
 import ru.clevertec.statkevich.newsservice.security.jwt.JwtUserDetails;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsCreateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsSingleVoTestBuilder;
@@ -34,7 +34,7 @@ import static org.mockito.Mockito.when;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-class NewsMapperTest extends BaseIntegrationTest {
+class NewsMapperTest extends BaseTest {
 
     private final NewsMapper newsMapper;
 

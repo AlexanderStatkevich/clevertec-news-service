@@ -1,4 +1,4 @@
-package ru.clevertec.statkevich.newsservice.integration;
+package ru.clevertec.statkevich.newsservice;
 
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ActiveProfiles("test")
 @Testcontainers
 @SpringBootTest
-public class BaseIntegrationTest {
+public class BaseTest {
 
     @ServiceConnection
     private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.3-alpine");

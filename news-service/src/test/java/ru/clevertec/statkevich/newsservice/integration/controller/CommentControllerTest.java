@@ -2,7 +2,6 @@ package ru.clevertec.statkevich.newsservice.integration.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,12 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.clevertec.statkevich.newsservice.BaseTest;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
-import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
 import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentCreateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentUpdateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.responsedata.TestCommentControllerJsonData;
@@ -31,18 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @AutoConfigureMockMvc
-public class CommentControllerTest extends BaseIntegrationTest {
+public class CommentControllerTest extends BaseTest {
     private final MockMvc mockMvc;
 
     private final ObjectMapper objectMapper;
 
     private final String COMMENTS_MAPPING = "/api/v1/comments";
 
-    @Sql(scripts = "/data/clear.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @BeforeEach
-    void setUp() {
-
-    }
 
     @Nested
     @DisplayName("Tests on find controller methods")

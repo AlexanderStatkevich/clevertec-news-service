@@ -11,11 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.clevertec.statkevich.newsservice.BaseTest;
 import ru.clevertec.statkevich.newsservice.domain.Comment;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentUpdateDto;
 import ru.clevertec.statkevich.newsservice.dto.comment.CommentVo;
-import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
 import ru.clevertec.statkevich.newsservice.security.jwt.JwtUserDetails;
 import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentCreateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.builder.comment.CommentTestBuilder;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-class CommentMapperTest extends BaseIntegrationTest {
+class CommentMapperTest extends BaseTest {
 
     private final CommentMapper commentMapper;
 

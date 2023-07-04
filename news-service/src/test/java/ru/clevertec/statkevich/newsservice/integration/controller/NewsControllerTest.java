@@ -11,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.clevertec.statkevich.newsservice.BaseTest;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsCreateDto;
 import ru.clevertec.statkevich.newsservice.dto.news.NewsUpdateDto;
-import ru.clevertec.statkevich.newsservice.integration.BaseIntegrationTest;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsCreateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.builder.news.NewsUpdateDtoTestBuilder;
 import ru.clevertec.statkevich.newsservice.testutil.responsedata.TestNewsControllerJsonData;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @SpringBootTest
 @AutoConfigureMockMvc
-public class NewsControllerTest extends BaseIntegrationTest {
+public class NewsControllerTest extends BaseTest {
     private final MockMvc mockMvc;
 
     private final ObjectMapper objectMapper;
