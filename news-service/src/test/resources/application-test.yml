@@ -21,4 +21,4 @@ settings:
   cache:
     type: LFU
   user-service:
-    uri: http://localhost:8080/api/v1/users
+    uri: http://localhost:7999/api/v1/users
